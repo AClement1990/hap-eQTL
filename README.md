@@ -107,30 +107,37 @@ download.file("https://www.dropbox.com/s/8su6scg0ojkc8pm/sample_Samples.txt?dl=1
 This function allows you to output .RData files to be used as input for the analysis run in the second function. This only needs to be done once for each chromosome which ensures the running of the model is not too computationally demanding. The processing of input files need not be done repeatedly, as they are constants for whichever parameters you wish to set in `Run.Model.R`. Hence separating this processing out allows tweaks to be made to the parameters in the second function, without having to re-run the processing each time.
        
 ### Arguments:
-1. Chromosome: Specify chromosome. Must be in the same format as that found in Ensembl. For example, if you are
-looking at chromosome 22, it would either be `Chromosome = 22` or simply `22`. If looking at the x chromosome,
-it would be `Chromosome="x"` or `"x"`.
-2. ASE_file: Specify file containing allele-specific expression information.
-3. legend_file: Specify legend file containing SNP IDs and position info, etc.
-4. haplotypes_file: Provide haplotypes corresponding to SNPs in legend file, for given individuals found in samples file.
-5. Samples: File containing cohort information.
-6. output_path: Directory path to save output files to.
-7. Species: Select same species as cohort. Defaults to "hsapiens".
-8. EnsemblVersion: Specify version of Ensembl to download from. Defaults to NULL which is the most recent build.
+
+1. ASE_file: Specify file containing allele-specific expression information.
+2. legend_file: Specify legend file containing SNP IDs and position info, etc.
+3. haplotypes_file: Provide haplotypes corresponding to SNPs in legend file, for given individuals found in samples file.
+4. samples_file: File containing cohort information.
+5. output_prefix: Pre-fix to the name of the output file.
+6. species: Select same species as cohort. Defaults to "hsapiens".
+7. ensembl_version: Specify version of Ensembl to download from. Defaults to NULL, which is the most recent build.
 
 ### Examples:
-#### Downloading Ensembl information for chromosome 22 of hsapiens, using the build corresponding to the sample data
+#### Annotating the input files using the most recent human gene set
 ```
-Gen.input(Chromosome=22, ASE_file="sample_ASE.txt", legend_file="sample_legend.leg", haplotypes_file="sample_haplotypes.hap", Samples_file="sample_Samples.txt",
-          output_path="RDataFiles/", Species = "hsapiens", EnsemblVersion = 78)
-```     
-#### Downloading Ensembl information for chromosome 22 of hsapiens, using the most recent build 
+Gen.input('path_to_ASE_file/ASEfile.txt.gz',
+                     'path_to_legend_file/file.legendfile.gz',
+                    'path_to_haplotypes_file/hapfile.hap.gz',
+                    'path_to_samples_file/samples.txt')
+```                     
+#### Annotating the input files using a previous human gene set (the same as the one that corresponds to the sample data
 ```
-     Gen.input(22, "ASE_file", legend_file", "haplotypes_file", "samples_file", "RDataFiles/")
+Gen.input('path_to_ASE_file/ASEfile.txt.gz',
+                     'path_to_legend_file/file.legendfile.gz',
+                    'path_to_haplotypes_file/hapfile.hap.gz',
+                    'path_to_samples_file/samples.txt', ensembl_version=78)
 ```     
-#### Downloading Ensembl information for chromosome 1 of mmusculus, using the most recent build
+#### Annotating the input files using the most recent mouse gene set
 ```    
-    Gen.input(1, "ASE_file", legend_file", "haplotypes_file", "samples_file", "RDataFiles/", species="mmusculus")
+Gen.input('path_to_ASE_file/ASEfile.txt.gz',
+                     'path_to_legend_file/file.legendfile.gz',
+                   'path_to_haplotypes_file/hapfile.hap.gz',
+                     'path_to_samples_file/samples.txt',
+                     '                     'mmusculus')
 ```
 
 The RData files outputted from the function, Gen.input, can now be used to run the analysis in the second function, below.
