@@ -143,7 +143,7 @@ Gen.input('path_to_ASE_file/ASEfile.txt.gz',
 The RData files outputted from the function, Gen.input, can now be used to run the analysis in the second function, below.
 
 
-## `Run.Model`            
+## `Run.model`            
 ### Arguments: 
 1. inputObj: This is the RData file outputted from the first function, Gen.input
 2. output_prefix: This is the pre-fix of the name of the output file
