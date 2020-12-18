@@ -145,41 +145,38 @@ The RData files outputted from the function, Gen.input, can now be used to run t
 
 ## `Run.Model`            
 ### Arguments: 
-1. input_file: This is the RData file outputted from the first function, `Gen.input`.
-2. Task: This analysis is very computationally burdensome. To speed up the process it is an advantage to split it up into tasks that may be run on multiple nodes, concurrently.
-3. progress_path: The function allows checkpointing, which allows the program to be killed and picked up again at a later stage, without starting from the beginning. Checkpointing occurs everytime you start a new ASE site, assuming 2 hours have elapsed.
-4. numTasks: Select how many jobs/tasks to split the process up into. Defaults to 100.
-5. Chromosome: Specify chromosome used in input file.
-6. numPerms: Select how many permutations to run. Along with splitting the process up into simultaneous tasks, this is the biggest factor in determining how long the analysis will take. However, the more permutations, in general and up until a point, the more precise and accurate the results may be; for example, if set to 100, the minimum p-value that can possibly be reached as a result of permutations, is 0.01. Defaults to 100,000.
-7. TSSwindow: The transcript start site window. This represents the distance over which nearby variants will be selected, either side of the transcript start site. Defaults to 500kb.
-8. pval_threshold: There is a theoretical minimum p-value for each particular combination of reference and alternative alleles for a given set of individuals for a given nearby variant of an ASE site.  This parameter sets the upper limit. Default is 0.00005. 
-          
+1. inputObj: This is the RData file outputted from the first function, Gen.input
+2. output_prefix: This is the pre-fix of the name of the output file
+3. task: This analysis is very computationally burdensome. To speed up the process it is an advantage to split it up into tasks that may be run on multiple nodes, concurrently. 
+4. totalTasks: Set the total number of tasks to split the analysis into. Defaults to 100.
+5. minInd: Specify the minimum number of individuals in which an ASE site must be found before in order to be included in the analysis. Defaults to 10
+6. numPerms: Select how many permutations to run. Along with splitting the process up into simultaneous tasks, this is the biggest factor in determining how long the analysis will take. However, the more permutations, in general and up until a point, the more precise and accurate the results may be; for example, if set to 100, the minimum p-value that can possibly be reached as a result of permutations, is 0.01. Defaults to 100,000. 
+7. TSSwindow: The transcript start site window. This represents the distance over which nearby variants will be selected,  either side of the transcript start site. Defaults to 500kb 
+8. pval_threshold: There is a theoretical minimum p-value for each particular combination of reference and alternative alleles for a given set of individuals for a given nearby variant of an ASE site. This parameter sets the upper limit. Default is 0.00005. 
+9. other_all: Specify whether or not to account for the allele on the haplotype to which the expressed site does not belong. Defaults to FALSE
+10. seed: Specify the number that the seed should be set to. The seed is the starting point used in the generation of a sequence of random numbers. Defaults to 10
+        
           
 ### Examples:
-#### Downloading Ensembl information for chromosome 22 of hsapiens, using the build corresponding to the sample data
+#### Run model with task set to 10, for 100,000 permutations, a transcript start site window of 500kb and a theoretical p-value threshold of 0.00005
 ```
-Run.Model("RDataFiles/Run.model.input_Chr22.RData", 9, numTasks=100, numPerms=100,
-             "ProgressFiles/",
-             Chromosome=22)
+Run.Model('input_file.RData', 10, 
+        'output_prefix')
 ```
-#### Run model with task set to 10, chromosome to 22, for 100,000 permutations, a transcript start site window of 500kb and a theoretical p-value threshold of 0.00005
+#### Run model with task set to 10, for 10,000 permutations, a transcript start site window of 500kb and a theoretical p-value of 0.00005
 ```
-     Run.Model("RDataFiles/Run.model.input_Chr22.RData", 10, 
-             "path_to_progress_file",
-             Chromosome=22)
+Run.Model('input_file.RData', 10,
+         'output_prefix',
+         numPerms=10000, pval_threshold=10000)
  ```    
-#### Run model with task set to 10, chromosome to 22, for 10,000 permutations, a transcript start site window of 500kb and a theoretical p-value of 0.0005
+#### Run model with task set to 2, for 10,000 permutations, a transcript start site window of 1Mb and a theoretical p-value of 0.00005
 ```
-     Run.Model("input_file.RData", 10,
-             "path_to_progress_file",
-             Chromosome=22, numPerms=10000, pval_threshold=10000)
+Run model with task\tset to 2, for 10,000 permutations, a transcript start site window of 1Mb and a theoretical p-value of 0.00005
+#' Run.Model('input_file.RData', 2,
+#'         'output_prefix',
+#'         numPerms=10000,TSSwindow=100000, pval_threshold=10000)
  ```    
-#### Run model with task set to 2, chromosome to 12, for 10,000 permutations, a transcript start site window of 1Mb and a theoretical p-value of 0.0005
-```
-     Run.Model("RDataFiles/Run.model.input_Chr12.RData", 2,
-             "path_to_progress_file",
-             Chromosome=12, numPerms=10000,TSSwindow=100000, pval_threshold=10000)
- ```    
+
 NB: The smallest possible p-value attainable as a result of running permutations is 1/numPerms. Hence, there is no advantage to setting the minimum p-value threshold to below this number.
 
 
@@ -191,17 +188,6 @@ The first four columns are the ID of the ASE site, its position, the individual,
 
 
 
-
-
-
-
-
-
-
-# STUFF TO DO LATER BELOW:
-
-
-
 ## Selecting significant sites
 To calculate the permuted p-values, in R do the following to your results dataframe, `df`:
 ```
@@ -209,12 +195,6 @@ To calculate the permuted p-values, in R do the following to your results datafr
 df2 <- df[which(as.numeric(df$numPerm) > 0),]
 df2$permuted_p <-as.numeric(df2$numPermExceed)/as.numeric(df2$numPerm)
 ```
-results <- results
-
-
-
-
-
 
 
 
