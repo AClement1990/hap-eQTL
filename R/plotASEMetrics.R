@@ -9,19 +9,6 @@
 #' @examples
 #' #' #Plot the output of Gen.input stored in aseDat
 #' plotASEMetrics(aseDat)
-#'                     
-#' #Annotating the input files using a previous human gene set
-#' Gen.input("path_to_ASE_file/ASEfile.txt.gz",
-#'                     "path_to_legend_file/file.legendfile.gz",
-#'                    "path_to_haplotypes_file/hapfile.hap.gz",
-#'                     "path_to_samples_file/samples.txt", ensembl_version=78)
-#'
-#' #Annotating the input files using the most recent mouse gene set
-#' Gen.input("path_to_ASE_file/ASEfile.txt.gz",
-#'                     "path_to_legend_file/file.legendfile.gz",
-#'                   "path_to_haplotypes_file/hapfile.hap.gz",
-#'                     "path_to_samples_file/samples.txt",
-#'                     "mmusculus")
 
 
 plotASEMetrics<-function(input, individuals=NULL, genes=NULL, variants=NULL)
