@@ -6,9 +6,8 @@
 #' @param qtlVar The id of the putative regulatory variant.
 #' @export
 #' @examples
-#' #' #Plot the output of Run.model.R stored in modelOut
-#' plotQTL(aseDat,'rs116197803', 'rs175183')
-
+#' #' #Plot the output of Run.model.R stored in modelOut. Choose a putative association with a very low p-value.
+#' plotQTL(aseDat, "rs9306160", "rs2838351", otherAll = TRUE)
 
 plotQTL <- function(modelOut, aseVar, qtlVar, otherAll = FALSE) {
     qtlData <- mergeExprGenos(aseVar, modelOut, qtlVar)
