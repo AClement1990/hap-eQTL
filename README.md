@@ -198,9 +198,11 @@ df2$permuted_p <-as.numeric(df2$numPermExceed)/as.numeric(df2$numPerm)
 
 ## Plotting functions
 You can use the `plotASEMetrics` function to visualise some of your ASE data. It shows how many individuals are heterozygote at each ASE site in the first plot. In the second plot, it shows how many genes contain varying number of heterozygous sites. The third plot provides a survey of how many sites show a certain proportion of reads that carry the reference allele rather than the alternative allele, which is effectively a check for any potential allelic mapping bias. The fourth plot shows the extent of ASE across the individual sites and individuals, plotting allele ratio against the total number of reads and colouring the points according to their binomial p-value. Simply load your output from the Gen.input function as follows:
+
 `plotASEMetrics(aseDat)`
 
 You can also use the `plotQTL` function to construct violin plots which show the distribution of the expression values on the basis of the status of the nearby allele, on both haplotypes. It requires three inputs be specified inside the function. First, the output from the Gen.input function; secondly, an ASE site; thirdly, a putative cis-regulatory variant, which you can find in the output of the Run.model function. An example is given below:
+
 `plotQTL(aseDat, "rs9306160", "rs2838351", otherAll = TRUE)`
 
 
