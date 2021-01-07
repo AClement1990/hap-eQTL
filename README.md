@@ -171,7 +171,7 @@ Run.Model('input_file.RData', 10,
  ```    
 #### Run model with task set to 2, for 10,000 permutations, a transcript start site window of 1Mb and a theoretical p-value of 0.00005
 ```
-Run model with task\tset to 2, for 10,000 permutations, a transcript start site window of 1Mb and a theoretical p-value of 0.00005
+Run model with task set to 2, for 10,000 permutations, a transcript start site window of 1Mb and a theoretical p-value of 0.00005
 #' Run.Model('input_file.RData', 2,
 #'         'output_prefix',
 #'         numPerms=10000,TSSwindow=100000, pval_threshold=10000)
